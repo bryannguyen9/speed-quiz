@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Speed Reader</title>
-    <link rel="stylesheet" href="./assets/style.css" />
+    <meta charset="UTF-8">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="./assets/style.css">
   </head>
   <body>
-    <div class="container">
-      <h1 class="welcome">Welcome to Speed Quiz</h1>
-      <h2 id="countdown"></h2>
-      <p id="quizEndScreen"></p>
-      <section id = "nameLog">
-        <form >
-            <input placeholder="name" id="name" />
-            <input placeholder="email" id="email" />
-            <button id="submit">Submit</button> <!--adding submit button where i left off!!!-->
-            <div>
-              <h3 id="response"></h3>
-            </div>
-          </form>
-      </section>
+    <div id="quiz-container">
+      <h1 class="welcome">Welcome to the Quiz Game</h1>
+      <p class="welcome">Click the Start button to begin the game.</p>
+      <button id="start-button">Start</button>
+      <div id="game-container" style="display:none">
+        <div id="score-container">
+          <span id="score">0</span>
+        </div>
+        <div id="timer-container">
+          <span id="timer"></span> 
+        </div>
+        <div id="question"></div>
+        <ul id="choices">
+          <li>
+            <input type="radio" name="answer" value="0" id="answer0">
+            <label for="answer0" id="answer-label0"></label>
+          </li>
+          <li>
+            <input type="radio" name="answer" value="1" id="answer1">
+            <label for="answer1" id="answer-label1"></label>
+          </li>
+          <li>
+            <input type="radio" name="answer" value="2" id="answer2">
+            <label for="answer2" id="answer-label2"></label>
+          </li>
+          <li>
+            <input type="radio" name="answer" value="3" id="answer3">
+            <label for="answer3" id="answer-label3"></label>
+          </li>
+        </ul>
+        <button id="submit-button">Submit</button>
+        <button id="next-button" style="display:none">Next</button>
+      </div>
+      <div id="high-scores-container" style="display:none">
+        <h1>High Scores</h1>
+        <ul id="high-scores-list"></ul>
+        <form id="high-scores-form">
+          <label for="initials">Enter your initials:</label>
+          <input type="text" id="initials" name="initials" maxlength="3" required>
+          <button type="submit" id="submit-score-button">Submit</button>
+        </form>
+      </div>
     </div>
     <script src="./assets/script.js"></script>
   </body>
