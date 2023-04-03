@@ -8,7 +8,7 @@ function startQuiz() {
   startButton.style.display = 'none';
   const gameContainer = document.getElementById('game-container');
   gameContainer.style.display = 'block';
-  document.getElementById("score").textContent = "Score: " + score;
+  
   // Show the first question
   showQuestion(0);
 }
@@ -29,10 +29,7 @@ function startQuiz() {
     }
   }, 1000);
 
-  // Initialize score
-  
-  console.log(score);
-
+  document.getElementById("score-container").textContent = "Score: " + score;
   // Show first question
   startQuiz();
 });
@@ -110,6 +107,8 @@ function checkAnswer() {
     feedbackEl.textContent = "CORRECT";
     document.getElementById("feedback").appendChild(feedbackEl);
     score++;
+    document.getElementById("score-container").textContent = "Score: " + score;
+    console.log(score);
 
   } else {
     feedbackEl.textContent = "WRONG";
