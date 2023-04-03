@@ -1,23 +1,25 @@
-let score = 0;
+var score = 0;
 let currentQuestionIndex = 0;
-let time = 30;
+let timeLeft = 30;
 
+//function to start quiz upon clicking start button
 function startQuiz() {
   const startButton = document.getElementById('start-button');
   startButton.style.display = 'none';
   const gameContainer = document.getElementById('game-container');
   gameContainer.style.display = 'block';
-
+  document.getElementById("score").textContent = "Score: " + score;
   // Show the first question
   showQuestion(0);
 }
 
+//event listener for start-button (should include a hover for styling later)
   document.getElementById("start-button").addEventListener("click", function() {
-  // Hide start button
+  // Hide start button after starting quiz
   document.getElementById("start-button").style.display = "none";
 
-  // Create timer
-  var timeLeft = 30;
+  // Creates 30s timer
+  timeLeft = 30;
   var timer = setInterval(function() {
     timeLeft--;
     document.getElementById("timer").textContent = "Time left: " + timeLeft +" seconds";
@@ -28,14 +30,14 @@ function startQuiz() {
   }, 1000);
 
   // Initialize score
-  var score = 0;
-  document.getElementById("score").textContent = "Score: " + score;
+  
+  console.log(score);
 
   // Show first question
   startQuiz();
-  
 });
 
+//questions array filled with different arrays within arrays
 const questions = [  
   { 
     question: "What is the capital of France?",    
@@ -64,8 +66,8 @@ const questions = [
   }
 ];
 
+//function to display question
 function showQuestion(index) { 
-  // Update question and choices
   document.getElementById("question").textContent = questions[index].question;
 
   var choices = document.getElementById("choices");
@@ -75,7 +77,7 @@ function showQuestion(index) {
     var input = document.createElement("input");
     input.type = "radio";
     input.name = "answer";
-    input.value = i;
+    input.value = questions[index].choices[i];
 
     var label = document.createElement("label");
     label.setAttribute("for", "answer" + i);
@@ -85,37 +87,54 @@ function showQuestion(index) {
     li.appendChild(input);
     li.appendChild(label);
     choices.appendChild(li);
-  } 
 
-// Answer button click event handler
-document.getElementById("submit-button").addEventListener("click", function() {
-  // Check if answer is correct
-  var answer = document.querySelector('input[name="answer"]:checked').value;
-  if (answer === "correct") {
-    score++;
-    document.getElementById("score").textContent = "Score: " + score;
-    document.getElementById("result").textContent = "Correct!";
-  } else {
-    timeLeft -= 5;
-    document.getElementById("result").textContent = "Wrong!";
+    
+  }
+}
+
+//function to compare userChoice and correctAnswer then move to next question
+function checkAnswer() {
+  const selectedChoice = document.querySelector('input[name="answer"]:checked');
+  if (!selectedChoice) {
+    alert("Please select an answer.");
+    return;
   }
 
-  // Move to next question
-  var questionIndex = parseInt(document.getElementById("question-index").value);
-  if (questionIndex < questions.length - 1) {
-    showQuestion(questionIndex + 1);
+  //reads in current question and the selected choice value
+  const userChoice = selectedChoice.value;
+  const currentQuestion = questions[currentQuestionIndex];
+  const feedbackEl = document.createElement("p");
+
+  //comparison operator
+  if (userChoice === currentQuestion.correctAnswer) {
+    feedbackEl.textContent = "CORRECT";
+    document.getElementById("feedback").appendChild(feedbackEl);
+    score++;
+
+  } else {
+    feedbackEl.textContent = "WRONG";
+    document.getElementById("feedback").appendChild(feedbackEl);
+    timeLeft -= 5;
+  }
+
+  //moves to next question
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    showQuestion(currentQuestionIndex);
   } else {
     endGame();
   }
-});
 
-// Show question function
-
-
-  // Update question index
-  document.getElementById("question-index").value = index;
 }
 
+// Answer button click event handler
+const submitButton = document.getElementById('submit-button');
+submitButton.addEventListener('click', function() {
+  checkAnswer();
+  })
+
+
+//ENDED HERE
 // End game function
 function endGame() {
   // Hide quiz container
@@ -125,7 +144,7 @@ function endGame() {
   //document.getElementById
 }
 
-  const startButton = document.querySelector('#start-button');
+const startButton = document.querySelector('#start-button');
 const quizContainer = document.querySelector('#quiz-container');
 
 
@@ -133,53 +152,4 @@ const quizContainer = document.querySelector('#quiz-container');
 
 
 
-
-const nextButton = document.getElementById('next-button');
-nextButton.addEventListener('click', () => {
-  // get the selected choice
-  const selectedChoice = document.querySelector('input[name="choice"]:checked');
-  if (!selectedChoice) {
-    alert('Please select an answer.');
-    return;
-  }
-  const choiceIndex = parseInt(selectedChoice.value);
-
-  // check if the answer is correct
-  const currentQuestion = questions[currentQuestionIndex];
-  const isCorrect = currentQuestion.answer === choiceIndex;
-  if (isCorrect) {
-    score++;
-  } else {
-    timeLeft -= 5;
-  }
-
- 
-  
-  // move to the next question or end the game
-  currentQuestionIndex++;
-  if (currentQuestionIndex === questions.length || timeLeft === 0) {
-    endGame();
-  } else {
-    displayQuestion(currentQuestionIndex);
-  }
-});
-
-
-
-function checkAnswer() {
-  const selectedChoice = document.querySelector('input[name="choice"]:checked');
-  if (!selectedChoice) {
-    alert("Please select an answer.");
-    return;
-  }
-
-  const choiceIndex = parseInt(selectedChoice.value);
-  const currentQuestion = questions[currentQuestionIndex];
-
-  if (currentQuestion.answer === currentQuestion.choices[choiceIndex].value) {
-    score++;
-  } else {
-    timeLeft -= 5;
-  }
-}
 
