@@ -83,7 +83,7 @@ Here is an example of my checkAnswer() function that allows the users to see a '
  
 Here you can see the home page of my quiz:
 
-![Speed Quiz Homepage Screenshot](.../Assets/homepage.png)
+![Speed Quiz Homepage Screenshot](../../Assets/homepage.png)
 
 Here you can see that when you click 'Start' the first question of the quiz shows up:
 
