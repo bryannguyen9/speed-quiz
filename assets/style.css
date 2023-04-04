@@ -35,3 +35,7 @@
   font-size: 24px;
   color: #f00; /* Change the color to your liking */
 }
+
+#high-scores-list {
+  display: block;
+}

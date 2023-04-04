@@ -23,7 +23,7 @@ function startQuiz() {
   var timer = setInterval(function() {
     timeLeft--;
     document.getElementById("timer").textContent = "Time left: " + timeLeft +" seconds";
-    if (timeLeft === 0) {
+    if (timeLeft === 0 || currentQuestionIndex === questions.length) {
       clearInterval(timer);
       endGame();
     }
@@ -33,6 +33,7 @@ function startQuiz() {
   // Show first question
   startQuiz();
 });
+
 
 //questions array filled with different arrays within arrays
 const questions = [  
@@ -121,10 +122,11 @@ function checkAnswer() {
   if (currentQuestionIndex < questions.length) {
     showQuestion(currentQuestionIndex);
   } else {
-    endGame();
+    endGame(); //needs to be highscore page
   }
 
 }
+
 
 // Answer button click event handler
 const submitButton = document.getElementById('submit-button');
@@ -138,17 +140,93 @@ submitButton.addEventListener('click', function() {
 function endGame() {
   // Hide quiz container
   document.getElementById("quiz-container").style.display = "none";
+  //document.getElementById("high-scores-container").style.display="block";
+  // Save the score to local storage
+  localStorage.setItem("score", score);
 
-  // Show high scores log page
-  //document.getElementById
+  // Redirect to the highscore page
+  showHighScoreForm();
 }
+
+
+function showHighScoreForm() {
+  window.location.href = "highscores.html";
+}
+
+
+
 
 const startButton = document.querySelector('#start-button');
 const quizContainer = document.querySelector('#quiz-container');
+const highScoreContainer = document.querySelector('#high-scores-container');
+
+//need to put bootstrap for css
 
 
+// Define variables
+const highScoreButton = document.getElementById("high-score-button");
+const nameInput = document.getElementById("name-input");
+const highScoresList = document.getElementById("high-scores-list");
+let highScores = [];
 
+// Load high scores from local storage
+if (localStorage.getItem("highScores")) {
+  highScores = JSON.parse(localStorage.getItem("highScores"));
+}
 
+// Function to display the high scores on the page
+function displayHighScores() {
+  // Clear the high scores list
+  highScoresList.innerHTML = "";
 
+  // Loop through the high scores array and create list items for each
+  for (let i = 0; i < highScores.length; i++) {
+    const highScore = highScores[i];
 
+    const li = document.createElement("li");
+    li.textContent = `${highScore.name}: ${highScore.score}`;
+    highScoresList.appendChild(li);
+  }
+}
+
+// Add event listener to the high score submit button
+highScoreButton.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  // Get the name entered by the user and their score from local storage
+  const name = nameInput.value;
+  const score = localStorage.getItem("score");
+
+  // Check if the user entered a valid name
+  if (!name) {
+    alert("Please enter a valid name.");
+    return;
+  }
+
+  // Create an object to store the name and score
+  const highScore = {
+    name: name,
+    score: score
+  };
+
+  // Push the high score object into the array of high scores
+  highScores.push(highScore);
+
+  // Sort the high scores array by score
+  highScores.sort(function(a, b) {
+    return b.score - a.score;
+  });
+
+  // Store the updated high scores in local storage
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+
+  // Clear the name input field
+  nameInput.value = "";
+
+  // Display the updated high scores on the page
+  displayHighScores();
+});
+
+// Display the high scores on the page
+displayHighScores();
 

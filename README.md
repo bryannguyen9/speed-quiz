@@ -1,93 +1,162 @@
-# speed-quiz
-This is a website that quizzes you different questions based on a timer. Try to get the high score!
+# Speed-Quiz
+This is a speed quiz for users to test their knowledge on some fun facts!
 
-# 04 Web APIs: Code Quiz
+## Technology Used 
 
-## Your Task
+| Technology Used         | Resource URL           | 
+| ------------- |:-------------:| 
+| HTML    | [https://developer.mozilla.org/en-US/docs/Web/HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | 
+| CSS     | [https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)      |   
+| Git | [https://git-scm.com/](https://git-scm.com/)     |  
+| JavaScript | [https://developer.mozilla.org/en-US/docs/Web/javascript](https://developer.mozilla.org/en-US/docs/Web/javascript) |
 
-At some point in your journey to become a full-stack web developer, you’ll likely be asked to complete a coding assessment&mdash;perhaps as part of an interview process. A typical coding assessment includes both multiple-choice questions and interactive coding challenges. 
+## Description
 
-To help familiarize you with these tests and allow you to use the skills covered in this unit, this week’s challenge invites you to build a timed coding quiz with multiple-choice questions. This app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript code that you write. It will have a clean, polished, and responsive user interface. 
+[Visit the Deployed Site](https://bryannguyen9.github.io/speed-quiz/)
 
-This week’s coursework will equip you with all the skills you need to succeed in this assignment.
+This project is a website that allows users to perform a speed quiz.
 
-## User Story
+This quiz consists of 5 questions and logs scores based on if you received the question right or wrong. If user got the question wrong it subtracts 5 seconds from the initial time given of 30 seconds.
 
-```
-AS A coding boot camp student
-I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
-SO THAT I can gauge my progress compared to my peers
-```
+Again here is a link to my fully deployed website: 
+[Site Landing Page](https://bryannguyen9.github.io/speed-quiz/)
 
-## Acceptance Criteria
+## Table of Contents
 
-```
-GIVEN I am taking a code quiz
-WHEN I click the start button
-THEN a timer starts and I am presented with a question
-WHEN I answer a question
-THEN I am presented with another question
-WHEN I answer a question incorrectly
-THEN time is subtracted from the clock
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over
-WHEN the game is over
-THEN I can save my initials and my score
-```
+* [Mock Up](#mock-up)
+* [Code Example](#code-example)
+* [Usage](#usage)
+* [Learning Points](#learning-points)
+* [Author Info](#author-info)
+* [Credits](#credits)
+* [License](#license)
 
 ## Mock-Up
 
-The following animation demonstrates the application functionality:
+The following image shows the web application's appearance and functionality:
 
-![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./Assets/04-web-apis-challenge-demo.gif)
+![The homepage of my Speed Quiz](./Assets/03-javascript-challenge-demo.png)
 
-## Grading Requirements
+## Code Example
 
-This challenge is graded based on the following criteria: 
+Here is an example of my checkAnswer() function that allows the users to see a 'CORRECT' or 'WRONG' feedback based on what answer choice they submit for each question.
 
-### Technical Acceptance Criteria: 40%
+```javascript
+  function checkAnswer() {
+  const selectedChoice = document.querySelector('input[name="answer"]:checked');
+  if (!selectedChoice) {
+    alert("Please select an answer.");
+    return;
+  }
 
-* Satisfies all of the preceding acceptance criteria.
+  //reads in current question and the selected choice value
+  const userChoice = selectedChoice.value;
+  const currentQuestion = questions[currentQuestionIndex];
+  const feedbackEl = document.createElement("p");
 
-### Deployment: 32%
+  //comparison operator
+  if (userChoice === currentQuestion.correctAnswer) {
+    feedbackEl.textContent = "CORRECT";
+    document.getElementById("feedback").appendChild(feedbackEl);
+    score++;
+    document.getElementById("score-container").textContent = "Score: " + score;
+    console.log(score);
 
-* Application deployed at live URL.
+  } else {
+    feedbackEl.textContent = "WRONG";
+    document.getElementById("feedback").appendChild(feedbackEl);
+    timeLeft -= 5;
+  }
 
-* Application loads with no errors.
+  //moves to next question
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    showQuestion(currentQuestionIndex);
+  } else {
+    endGame(); //needs to be highscore page
+  }
 
-* Application GitHub URL submitted.
+}
+```
 
-* GitHub repository contains application code.
+## Usage
+ 
+Here you can see the home page of my quiz:
 
-### Application Quality: 15%
+![Speed Quiz Homepage Screenshot](./Assets/homepage.png)
 
-* Application user experience is intuitive and easy to navigate.
+Here you can see that when you click 'Start' the first question of the quiz shows up:
 
-* Application user interface style is clean and polished.
+![Prompt Window Popup Screenshot](./Assets/quiz.png)
 
-* Application resembles the mock-up functionality provided in the challenge instructions.
+Here you can see that after the timer counts down to 0 or when the user finishes all questions the highscore page shows up where user can log in their name and score:
 
-### Repository Quality: 13%
+![Generated Password Screenshot](./Assets/highscores.png)
 
-* Repository has a unique name.
 
-* Repository follows best practices for file structure and naming conventions.
+## Learning Points 
 
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
+There was a lot of stopping points in this project. Namely how to get all of the different pages and functions to work in unison. Points of abrasion include but are not limited to:
 
-* Repository contains multiple descriptive commit messages.
+1. Javascript and different event listeners in order to get the quiz to work in a way that is user friendly and allows for the 'speed' element to be an actual 'speed' element.
 
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
+2. Getting my high-scores log to show up after users inputted their name. (Still have not implemented this use case as I could not figure out but will return back in the future!)
 
-## Review
+3. Getting another html page to work in unison with the initial html page in this case I had a high-scores html page that popped up when the timer ran out or when users ran out of questions.
 
-You are required to submit BOTH of the following for review:
+These are some links that helped me:
 
-* The URL of the functional, deployed application.
+1. [W3 schools](https://www.w3schools.com/howto/howto_js_redirect_webpage.asp)
+2. [GeeksforGeeks](https://www.geeksforgeeks.org/how-to-create-a-simple-javascript-quiz/)
+3. [Stack-Overflow](https://stackoverflow.com/questions/75110260/creating-a-multiple-choice-quiz)
 
-* The URL of the GitHub repository, with a unique name and a readme describing the project.
+## About Me
 
----
+Hi, my name is Bryan Nguyen I am an up and coming full-stack web developer working
+on getting into the space with projects that support both my growth, belief, and imagination. I hope to one day work within the realm of AI, web-development, and even site-reliability/the space of cyber-security.
 
-© 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+## My links
 
+* [Portfolio](https://bryannguyen9.github.io/Bryan-Nguyen-Portfolio/)
+* [LinkedIn](https://linkedin.com/in/bryannguyen9)
+* [Github](https://github.com/bryannguyen9)
+
+
+## Credits
+
+### Special thanks to David Chung: 
+ 
+ * His Github Portfolio: [David-Chung-Github](https://github.com/dchung13/)
+ * His Linked-In: [David-Chung-LinkedIn](https://www.linkedin.com/in/david-chung-77141526b/)
+ * His Portfolio Site: [David-Chung-Portfolio](https://dchung13.github.io/David-Chung-Portfolio/) 
+
+### Special thanks to these reference websites that taught me different functionalities within my website for me to create a seamless experience for users.
+
+1. [W3 Schools](https://www.w3schools.com/JS/js_random.asp)
+2. [Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+3. [Stack-Overflow](https://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range)
+
+
+## License
+
+MIT License
+
+Copyright (c) [2023] [Bryan-Nguyen]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

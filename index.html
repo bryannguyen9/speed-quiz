@@ -11,7 +11,9 @@
       <p class="welcome">Click the Start button to begin the game.</p>
       <button id="start-button">Start</button>
       <div id="game-container" style="display:none">
-        <div id="score-container"></div>
+        <div id="score-container">
+          <input type = "submit" value = "High Scores" onClick = "showHighScoreForm()">
+        </div>
         <div id="timer-container">
           <span id="timer"></span> 
         </div>
@@ -38,16 +40,7 @@
         <p id="feedback"></p>
         <button id="next-button" style="display:none">Next</button>
       </div>
-      <div id="high-scores-container" style="display:none">
-        <h1>High Scores</h1>
-        <ul id="high-scores-list"></ul>
-        <form id="high-scores-form">
-          <label for="initials">Enter your initials:</label>
-          <input type="text" id="initials" name="initials" maxlength="3" required>
-          <button type="submit" id="submit-score-button">Submit</button>
-        </form>
-      </div>
-    </div>
+    
     <script src="./assets/script.js"></script>
   </body>
 </html>
