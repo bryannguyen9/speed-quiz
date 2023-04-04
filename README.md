@@ -35,7 +35,7 @@ Again here is a link to my fully deployed website:
 
 The following image shows the web application's appearance and functionality:
 
-![The homepage of my Speed Quiz](./Assets/03-javascript-challenge-demo.png)
+![The homepage of my Speed Quiz](.../Assets/homepage.png)
 
 ## Code Example
 
@@ -83,15 +83,15 @@ Here is an example of my checkAnswer() function that allows the users to see a '
  
 Here you can see the home page of my quiz:
 
-![Speed Quiz Homepage Screenshot](./Assets/homepage.png)
+![Speed Quiz Homepage Screenshot](.../Assets/homepage.png)
 
 Here you can see that when you click 'Start' the first question of the quiz shows up:
 
-![Prompt Window Popup Screenshot](./Assets/quiz.png)
+![Prompt Window Popup Screenshot](../Assets/quiz.png)
 
 Here you can see that after the timer counts down to 0 or when the user finishes all questions the highscore page shows up where user can log in their name and score:
 
-![Generated Password Screenshot](./Assets/highscores.png)
+![Generated Password Screenshot](../Assets/highscores.png)
 
 
 ## Learning Points 
